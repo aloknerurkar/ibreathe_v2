@@ -1,0 +1,83 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    tools:context="com.ibreathe.ibreathe_v1.event.EventList">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="@dimen/feed_item_padding_left_right"
+        android:paddingRight="@dimen/feed_item_padding_left_right" >
+
+        <ImageView
+            android:id="@+id/loc_pin"
+            android:layout_width="@dimen/list_item_small_pic"
+            android:layout_height="@dimen/list_item_small_pic"
+            android:scaleType="fitCenter"
+            android:src="@drawable/location_pin">
+        </ImageView>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <TextView
+                android:id="@+id/popup_loc_name"
+                android:layout_width="0dp"
+                android:layout_weight="7"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center"
+                android:text="Location"
+                android:textSize="@dimen/feed_item_profile_name"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/popup_loc_dist"
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center"
+                android:textColor="@color/timestamp"
+                android:textSize="@dimen/feed_item_timestamp"
+                android:text="2 miles away" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:textAppearance="@style/WalletFragmentDefaultButtonTextAppearance"
+        android:text="Upcoming Events"/>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:padding="4dp">
+        <ListView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/event_list"
+            android:dividerHeight="5dp"
+            android:divider="@null">
+
+        </ListView>
+    </LinearLayout>
+
+
+</LinearLayout>
