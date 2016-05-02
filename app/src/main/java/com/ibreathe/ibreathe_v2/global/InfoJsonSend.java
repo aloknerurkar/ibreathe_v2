@@ -382,8 +382,8 @@ public class InfoJsonSend {
                 return_events[i].desc = events.getJSONObject(i).getString("desc");
                 return_events[i].sport_category = events.getJSONObject(i).getInt("sport_category");
                 return_events[i].event_category = events.getJSONObject(i).getInt("event_category");
-                return_events[i].ema = fillEMA(events.getJSONObject(i).getJSONObject("ema"));
-                return_events[i].emm = fillEMM(events.getJSONObject(i).getJSONObject("emm"));
+                //return_events[i].ema = fillEMA(events.getJSONObject(i).getJSONObject("ema"));
+                //return_events[i].emm = fillEMM(events.getJSONObject(i).getJSONObject("emm"));
 
             } catch (JSONException e) {
                 e.printStackTrace();

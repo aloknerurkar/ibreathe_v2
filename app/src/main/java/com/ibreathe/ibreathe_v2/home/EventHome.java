@@ -42,7 +42,6 @@ public class EventHome extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.event_home);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
         Date ev_dt = null;
         SimpleDateFormat dateFormat = null;
         SimpleDateFormat day = null;

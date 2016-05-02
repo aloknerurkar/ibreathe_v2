@@ -20,6 +20,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -51,11 +53,13 @@ import com.ibreathe.ibreathe_v2.R;
 import com.ibreathe.ibreathe_v2.global.GlobalVariable;
 import com.ibreathe.ibreathe_v2.global.InfoJsonSend;
 import com.ibreathe.ibreathe_v2.global.SessionManager;
+import com.ibreathe.ibreathe_v2.models.OrgType;
 import com.ibreathe.ibreathe_v2.models.ResultsByVenue;
 import com.ibreathe.ibreathe_v2.models.VenueType;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -195,21 +199,27 @@ public class HomeFragment extends Fragment implements LocationListener{
                             create.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-//                            Intent createI = new Intent(HomeActivity.this, CreateEvent.class);
-//                            createI.putExtra("venue",results[finalI].mVenue);
-//                            OrgType orgType = new OrgType();
-//                            try {
-//                                if (user != null) {
-//                                    orgType.org_name = user.getString("name");
-//                                    orgType.contact_name = user.getString("name");
-//                                    orgType.contact_email = user.getString("email");
-//                                    createI.putExtra("org",orgType);
-//                                }
-//                            } catch (JSONException e) {
-//                                e.printStackTrace();
-//                            }
-//                            startActivity(createI);
-                                    Intent createI = new Intent(getActivity(), EventHome.class);
+                                    Intent createI = new Intent(getActivity(), CreateEvent.class);
+                                    createI.putExtra("venue",results[finalI].mVenue);
+                                    OrgType orgType = new OrgType();
+                                    JSONObject user = new JSONObject();
+
+                                    try {
+                                        user.put("name", "Rohan Mukherji");
+                                        user.put("email", "rohan@ibreathe.com");
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                    try {
+                                        if (user != null) {
+                                            orgType.org_name = user.getString("name");
+                                            orgType.contact_name = user.getString("name");
+                                            orgType.contact_email = user.getString("email");
+                                            createI.putExtra("org",orgType);
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
                                     startActivity(createI);
                                 }
                             });
@@ -269,6 +279,8 @@ public class HomeFragment extends Fragment implements LocationListener{
         }
 
         if (current_location != null){
+            current_location.setLatitude(37.405700);
+            current_location.setLongitude(-121.925578);
             mListEvents = new ListEventsTask(current_location);
             mListEvents.execute();
         }
@@ -374,17 +386,16 @@ public class HomeFragment extends Fragment implements LocationListener{
 
     @Override
     public void onDestroyView() {
-        mapIcons.clear();
-
-        if (mapFragment != null) {
-            getFragmentManager().beginTransaction().remove(mapFragment).commit();
-        }
         super.onDestroyView();
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.remove(mapFragment);
+        ft.commit();
     }
 
     @Override
     public void onLocationChanged(Location location) {
-        current_location = location;
+        //current_location = location;
     }
 
     @Override

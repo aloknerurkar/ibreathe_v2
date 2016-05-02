@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Create Event"
+                android:textSize="30dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"/>
+
+            <EditText
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:hint="Event Name"
+                android:id="@+id/event_name"/>
+
+            <Spinner
+                android:layout_width="300dp"
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/typeOfGame"
+                android:layout_marginLeft="30dp"
+                android:prompt="@string/PickUp">
+
+            </Spinner>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+                <Spinner
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sport_spinner"
+                    android:layout_marginLeft="30dp"
+                    android:prompt="@string/Sport">
+
+                </Spinner>
+
+                <Spinner
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/gameType"
+                    android:layout_marginLeft="30dp"
+                    android:prompt="@string/Public">
+
+                </Spinner>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/mapViewCreateEvent"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:orientation="vertical"
+                android:padding="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp">
+                <fragment
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:name="com.google.android.gms.maps.MapFragment"
+                    android:id="@+id/mapCreate"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+                <Spinner
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/gameTypeCost"
+                    android:layout_marginLeft="30dp"
+                    android:prompt="@string/Free">
+                </Spinner>
+
+                <EditText
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:hint="  /  /  "
+                    android:id="@+id/date"
+                    android:focusable="false"/>
+
+                <EditText
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:hint="00:00 AM"
+                    android:id="@+id/time"
+                    android:focusable="false"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Players:"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="20dp"/>
+
+                <Spinner
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:id="@+id/MinPlayers"
+                    android:prompt="@string/Min">
+
+                </Spinner>
+
+                <Spinner
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/MaxPLayers"
+                    android:layout_gravity="bottom"
+                    android:prompt="@string/Max">
+                </Spinner>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Teams:"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="20dp"/>
+
+                <Spinner
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/MinTeams"
+                    android:prompt="@string/Min">
+
+                </Spinner>
+
+                <Spinner
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/MaxTeams"
+                    android:prompt="@string/Max">
+                </Spinner>
+            </LinearLayout>
+
+            <EditText
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="30dp"
+                android:hint="Say something about the event..."
+                android:id="@+id/event_desc"
+                android:minLines="3"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Create"
+                android:layout_gravity="center"
+                android:id="@+id/createEvent"
+                android:layout_marginTop="30dp"/>
+
+            </LinearLayout>
+        </ScrollView>
+
+
+</LinearLayout>
+
+

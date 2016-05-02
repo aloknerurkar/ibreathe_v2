@@ -1,17 +1,22 @@
 package com.ibreathe.ibreathe_v2.home;
 
+import android.content.Context;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTabHost;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TabHost;
 
 import com.ibreathe.ibreathe_v2.R;
 import com.ibreathe.ibreathe_v2.login.Launcher_frag;
@@ -22,77 +27,147 @@ import java.util.List;
 
 public class Home extends AppCompatActivity {
 
-    private Toolbar toolbar;
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
-    private int[] tabIcons = {
-            R.drawable.ic_home_black_24dp,
-            R.drawable.ic_event_black_24dp,
-            R.drawable.ic_person_black_24dp,
-            R.drawable.ic_public_black_24dp
-    };
+    public FragmentTabHost mTabHost;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
 
-//        toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
+        mTabHost.setup(this, getSupportFragmentManager(), android.R.id.tabcontent);
 
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
-        setupViewPager(viewPager);
+        mTabHost.addTab(
+                mTabHost.newTabSpec("Home").setIndicator(getTabIndicator(mTabHost.getContext(),
+                        R.drawable.ic_home_black_24dp)),
+                        HomeFragment.class, null);
+        mTabHost.addTab(
+                mTabHost.newTabSpec("My Events").setIndicator(getTabIndicator(mTabHost.getContext(),
+                        R.drawable.ic_event_black_24dp)),
+                        MyEventsFragment.class, null);
+        mTabHost.addTab(
+                mTabHost.newTabSpec("Profile").setIndicator(getTabIndicator(mTabHost.getContext(),
+                        R.drawable.ic_person_black_24dp)),
+                        Launcher_frag.class, null);
+        mTabHost.addTab(
+                mTabHost.newTabSpec("Notfications").setIndicator(getTabIndicator(mTabHost.getContext(),
+                        R.drawable.ic_public_black_24dp)),
+                        Launcher_frag.class, null);
+        tabSelected(0);
 
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
-        setupTabIcons();
+        mTabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+            @Override
+            public void onTabChanged(String tabId) {
+                int tab = mTabHost.getCurrentTab();
+                View v;
+                switch (tab){
+                    case 0:
+                        tabSelected(0);
+                        tabUnselected(1);
+                        tabUnselected(2);
+                        tabUnselected(3);
+                        break;
+                    case 1:
+                        tabSelected(1);
+                        tabUnselected(0);
+                        tabUnselected(2);
+                        tabUnselected(3);
+                        break;
+                    case 2:
+                        tabSelected(2);
+                        tabUnselected(0);
+                        tabUnselected(1);
+                        tabUnselected(3);
+                        break;
+                    case 3:
+                        tabSelected(3);
+                        tabUnselected(0);
+                        tabUnselected(1);
+                        tabUnselected(2);
+                        break;
+                }
+            }
+        });
     }
 
-    private void setupTabIcons() {
-        tabLayout.getTabAt(0).setIcon(tabIcons[0]);
-        tabLayout.getTabAt(1).setIcon(tabIcons[1]);
-        tabLayout.getTabAt(2).setIcon(tabIcons[2]);
-        tabLayout.getTabAt(3).setIcon(tabIcons[3]);
-    }
+    private void tabSelected(int tab) {
+        View v;
+        ImageView ic;
 
-    private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFrag(new HomeFragment(), "Home");
-        adapter.addFrag(new Launcher_frag(), "TWO");
-        adapter.addFrag(new Launcher_frag(), "THREE");
-        adapter.addFrag(new Launcher_frag(), "FOUR");
-        viewPager.setAdapter(adapter);
-    }
-
-    class ViewPagerAdapter extends FragmentPagerAdapter {
-        private final List<Fragment> mFragmentList = new ArrayList<>();
-        private final List<String> mFragmentTitleList = new ArrayList<>();
-
-        public ViewPagerAdapter(FragmentManager manager) {
-            super(manager);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return mFragmentList.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return mFragmentList.size();
-        }
-
-        public void addFrag(Fragment fragment, String title) {
-            mFragmentList.add(fragment);
-            mFragmentTitleList.add(title);
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return null;
+        switch (tab) {
+            case 0:
+                v = mTabHost.getTabWidget().getChildAt(tab);
+                if (v != null) {
+                    ic = (ImageView)v.findViewById(R.id.imageView);
+                    ic.setImageResource(R.drawable.ic_home_white_24dp);
+                }
+                break;
+            case 1:
+                v = mTabHost.getTabWidget().getChildAt(tab);
+                if (v != null) {
+                    ic = (ImageView)v.findViewById(R.id.imageView);
+                    ic.setImageResource(R.drawable.ic_event_white_24dp);
+                }
+                break;
+            case 2:
+                v = mTabHost.getTabWidget().getChildAt(tab);
+                if (v != null) {
+                    ic = (ImageView)v.findViewById(R.id.imageView);
+                    ic.setImageResource(R.drawable.ic_person_white_24dp);
+                }
+                break;
+            case 3:
+                v = mTabHost.getTabWidget().getChildAt(tab);
+                if (v != null) {
+                    ic = (ImageView)v.findViewById(R.id.imageView);
+                    ic.setImageResource(R.drawable.ic_public_white_24dp);
+                }
+                break;
         }
     }
 
+    private void tabUnselected(int tab) {
+        View v;
+        ImageView ic;
+
+        switch (tab) {
+            case 0:
+                v = mTabHost.getTabWidget().getChildAt(tab);
+                if (v != null) {
+                    ic = (ImageView)v.findViewById(R.id.imageView);
+                    ic.setImageResource(R.drawable.ic_home_black_24dp);
+                }
+                break;
+            case 1:
+                v = mTabHost.getTabWidget().getChildAt(tab);
+                if (v != null) {
+                    ic = (ImageView)v.findViewById(R.id.imageView);
+                    ic.setImageResource(R.drawable.ic_event_black_24dp);
+                }
+                break;
+            case 2:
+                v = mTabHost.getTabWidget().getChildAt(tab);
+                if (v != null) {
+                    ic = (ImageView)v.findViewById(R.id.imageView);
+                    ic.setImageResource(R.drawable.ic_person_black_24dp);
+                }
+                break;
+            case 3:
+                v = mTabHost.getTabWidget().getChildAt(tab);
+                if (v != null) {
+                    ic = (ImageView)v.findViewById(R.id.imageView);
+                    ic.setImageResource(R.drawable.ic_public_black_24dp);
+                }
+                break;
+        }
+    }
+
+    private View getTabIndicator(Context context, int icon) {
+        View view = LayoutInflater.from(context).inflate(R.layout.tab_layout, null);
+        ImageView iv = (ImageView) view.findViewById(R.id.imageView);
+        iv.setImageResource(icon);
+        return view;
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -114,19 +189,5 @@ public class Home extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onBackPressed() {
-
-        int count = getSupportFragmentManager().getBackStackEntryCount();
-
-        if (count == 0) {
-            super.onBackPressed();
-            //additional code
-        } else {
-            getSupportFragmentManager().popBackStack();
-        }
-
     }
 }
